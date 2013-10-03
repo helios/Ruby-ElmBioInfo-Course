@@ -1,0 +1,1340 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="Raoul J.P. Bonnal: r@bioruby.org" />
+  <title>Ruby @ Elementi di Bioinformatica</title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link rel="stylesheet" href="reveal.js/css/reveal.min.css"/>
+    <style type="text/css">code{white-space: pre;}</style>
+    <link rel="stylesheet" href="reveal.js/css/theme/moon.css" id="theme">
+    <link rel="stylesheet" href="reveal.js/css/zenburn.css"/>
+    <link rel="stylesheet" href="reveal.js/css/custom.css" id="theme">
+  <link rel="stylesheet" media="print" href="reveal.js/css/print/pdf.css" />
+  <!--[if lt IE 9]>
+  <script src="reveal.js/lib/js/html5shiv.js"></script>
+  <![endif]-->
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section>
+    <h1 class="title">Ruby @ Elementi di Bioinformatica</h1>
+    <h2 class="author">Raoul J.P. Bonnal: r@bioruby.org</h2>
+    <h3 class="date">4 Ottobre 2013</h3>
+</section>
+
+<section><section id="ruby" class="titleslide slide level1"><h1>Ruby</h1></section><section id="le-origini-e-la-storia" class="slide level2">
+<h1>le origini e la storia</h1>
+<p>E' stato rilasciato ufficialmente nel 1995 e solo nel 2006 la base di utenza ha raggiunto una diffusione tale da considerarlo non piu un linguaggio di nicchia.</p>
+<p>Il suo creatore è <img src="Yukihiro_Matsumoto-35.JPG" alt="Yukihiro Matz Matsumoto" /></p>
+<blockquote>
+<p>Trying to make Ruby natural, not simple.</p>
+</blockquote>
+<blockquote>
+<p>Ruby is simple in appearance, but is very complex inside, just like our human body</p>
+</blockquote>
+</section><section id="diverse-implementazioni" class="slide level2">
+<h1>Diverse Implementazioni</h1>
+<ul>
+<li><p><a href="https://www.ruby-lang.org/en/">MRI</a> Matz's Ruby Interpreter. L'implementazione in C aggiornta con le ultimissime novità discusse nelle <a href="https://www.ruby-lang.org/en/community/mailing-lists/">mailing list</a></p></li>
+<li><p><a href="http://jruby.org/">JRuby</a> E' l'implementazione in Java, non è aggiornata alle ultime specifiche ufficiali del linguaggio. Generalmente è in ritardo di una release. Con il tempo risulta essere stabile e sfrutta in modo eccellente le migliorie delle nuove JVM. Sta acquisendo sempre più seguito e credito perchè permette l'integrazione di codice Java preesistente con nuove estensioni in Ruby.</p></li>
+</ul>
+</section><section id="diverse-implementazioni-1" class="slide level2">
+<h1>Diverse Implementazioni</h1>
+<ul>
+<li><p><a href="http://ruboto.org/">Ruboto</a> è un framework per lo sviluppo di applicazioni native Android, utilizzando JRuby.</p></li>
+<li><p><a href="http://rubini.us/">Rubinius</a> Implementazione in C++ ma lo sviluppo non è allineato con le specifiche del linguaggio.</p></li>
+<li><p><a href="http://www.rubyenterpriseedition.com/">Ree</a> E' una versione orientata al mondo server che include significative migliorie in termini di prestazioni e gestione della memoria. Assolutamente da usare quano le risorse hardware risultano limitate oppure costano molto.</p></li>
+</ul>
+</section><section id="perché-lo-scripting" class="slide level2">
+<h1>Perché lo scripting ?</h1>
+<p>Una metodologia agile che privilegia la velocità di sviluppo per ottenere risultati nel più breve tempo possibile.</p>
+</section><section id="perché-lo-scripting-1" class="slide level2">
+<h1>Perché lo scripting ?</h1>
+<p>Una metodologia agile che privilegia la velocità di sviluppo per ottenere risultati nel più breve tempo possibile.</p>
+<p>Esistono degli svantaggi in questo approccio:</p>
+</section><section id="perché-lo-scripting-2" class="slide level2">
+<h1>Perché lo scripting ?</h1>
+<p>Una metodologia agile che privilegia la velocità di sviluppo per ottenere risultati nel più breve tempo possibile.</p>
+<p>Esistono degli svantaggi in questo approccio:</p>
+<ul>
+<li>necessità continua di refactoring e implementazione di nuove specifiche</li>
+</ul>
+</section><section id="perché-lo-scripting-3" class="slide level2">
+<h1>Perché lo scripting ?</h1>
+<p>Una metodologia agile che privilegia la velocità di sviluppo per ottenere risultati nel più breve tempo possibile.</p>
+<p>Esistono degli svantaggi in questo approccio:</p>
+<ul>
+<li>necessità continua di refactoring e implementazione di nuove specifiche</li>
+<li>ciclo di vita del software molto breve</li>
+</ul>
+</section><section id="ma" class="slide level2">
+<h1>MA</h1>
+<ul>
+<li>il software perfetto non esiste</li>
+<li>le specifiche le definiamo noi</li>
+<li>meglio qualcosa che niente</li>
+</ul>
+</section><section id="ruby-e-la-bioinformatica" class="slide level2">
+<h1>Ruby e la Bioinformatica</h1>
+<ul>
+<li>BioRuby</li>
+<li>SciRuby</li>
+<li>Google Summer of Code</li>
+</ul>
+</section><section id="installazione" class="slide level2">
+<h1>Installazione</h1>
+<p>GNU/Linux - OSX</p>
+<ul>
+<li><a href="https://www.ruby-lang.org/en/downloads/">from scratch</a></li>
+<li><a href="https://rvm.io/">RVM</a> Ruby Version Manager</li>
+<li><a href="https://github.com/sstephenson/rbenv">rbenv</a></li>
+</ul>
+<p>Windows</p>
+<ul>
+<li><a href="http://rubyinstaller.org/">Ruby Installer</a></li>
+</ul>
+</section><section id="installazione-1" class="slide level2">
+<h1>Installazione</h1>
+<h3 id="rvm">RVM</h3>
+<pre><code>\curl -L https://get.rvm.io | bash -s stable
+
+rvm install 2.0.0
+
+# some very simple configuration for your .bash_profile .profile .bashrc
+
+rvm use 2.0.0
+
+rvm list 
+
+# jruby-1.7.4 [ x86_64 ]
+# ruby-1.9.3-p448 [ x86_64 ]
+# =* ruby-2.0.0-p247 [ x86_64 ]</code></pre>
+</section><section id="come-interagire-con-ruby" class="slide level2">
+<h1>Come interagire con Ruby</h1>
+<ul>
+<li>IRB Interactive Ruby Shell</li>
+<li><a href="http://pryrepl.org/">Pry</a>
+<ul>
+<li>syntax highlighting</li>
+<li>flexible plugin architecture</li>
+<li>runtime invocation</li>
+<li>source and documentation browsing</li>
+<li>posso interagire anche con la shell direttamente</li>
+</ul></li>
+</ul>
+</section><section id="pry" class="slide level2">
+<h1>Pry</h1>
+<pre><code>pry(main)&gt; cd FileUtils
+pry(FileUtils):1&gt; show-method rm
+
+From: /opt/ruby/lib/ruby/1.9.1/fileutils.rb @ line 556:
+Number of lines: 10
+Owner: FileUtils
+
+def rm(list, options = {})
+  fu_check_options options, OPT_TABLE[&#39;rm&#39;]
+  list = fu_list(list)
+  fu_output_message &quot;rm#{options[:force] ? &#39; -f&#39; : &#39;&#39;} #{list.join &#39; &#39;}&quot; if options[:verbose]
+  return if options[:noop]
+
+  list.each do |path|
+    remove_file path, options[:force]
+  end
+end
+pry(FileUtils):2&gt;</code></pre>
+</section></section>
+<section><section id="il-linguaggio" class="titleslide slide level1"><h1>Il linguaggio</h1></section><section id="stringhe" class="slide level2">
+<h1>Stringhe</h1>
+<h3 id="creazione">Creazione</h3>
+<pre><code>bio_text_format = &quot;In bioinformatica\nle informazioni vengono il più delle volte salvate e scambiate in file di testo.&quot;
+puts bio_text_format
+# =&gt; In bioinformatica
+# =&gt; le informazioni vengono il più delle volte salvate e scambiate in file di testo.
+
+bio_text_unformat = &#39;In bioinformatica\nle informazioni vengono il più delle volte salvate e scambiate in file di testo.&#39;
+puts bio_text_unformat
+# =&gt; In bioinformatica\nle informazioni vengono il più delle volte salvate e scambiate in file di testo.</code></pre>
+</section><section id="stringhe-1" class="slide level2">
+<h1>Stringhe</h1>
+<h3 id="creazione-multi-linee">Creazione multi linee</h3>
+<pre><code>bio_text_format = &lt;&lt;-STR
+La bioinformatica è una disciplina scientifica dedicata alla risoluzione di problemi biologici a livello molecolare con metodi informatici.
+Essa costituisce un tentativo di descrivere dal punto di vista numerico e statistico i fenomeni biologici: storicamente ed epistemologicamente la biologia ha fatto minor ricorso ad un approccio matematico rispetto ad altre discipline scientifiche (quali fisica e chimica). La bioinformatica quindi tenta di supplire a questa lacuna fornendo ai risultati tipici della biochimica e della biologia molecolare un corredo di strumenti analitici e numerici. Vengono coinvolte, oltre all&#39;informatica, matematica applicata, statistica, chimica, biochimica e nozioni di intelligenza artificiale.
+STR</code></pre>
+</section><section id="stringhe-2" class="slide level2">
+<h1>Stringhe</h1>
+<h3 id="semplici-operazioni">Semplici operazioni</h3>
+<pre><code>bio_text_format = &quot;In bioinformatica\nle informazioni vengono il più delle volte salvate e scambiate in file di testo.&quot;
+bio_text_format.size #length
+# =&gt; 98
+
+bio_text_format.count &#39;a&#39;
+# =&gt; 7</code></pre>
+</section><section id="stringhe-3" class="slide level2">
+<h1>Stringhe</h1>
+<h3 id="comparazione">Comparazione</h3>
+<pre><code>&quot;In bioinformatica\nle informazioni vengono il più delle volte salvate e scambiate in file di testo.&quot; == &#39;In bioinformatica\nle informazioni vengono il più delle volte salvate e scambiate in file di testo.&#39;
+# =&gt; false
+
+&quot;In bioinformatica\\nle informazioni vengono il più delle volte salvate e scambiate in file di testo.&quot; == &#39;In bioinformatica\nle informazioni vengono il più delle volte salvate e scambiate in file di testo.&#39;
+# =&gt; true</code></pre>
+</section><section id="stringhe-4" class="slide level2">
+<h1>Stringhe</h1>
+<h3 id="manipolazione">Manipolazione</h3>
+<p>Da minuscolo a maiuscolo e ancora minuscolo</p>
+<pre><code>bio_text_format = &quot;In bioinformatica\nle informazioni vengono il più delle volte salvate e scambiate in file di testo.&quot;
+bio_text_format.upcase
+# =&gt; &quot;IN BIOINFORMATICA\nLE INFORMAZIONI VENGONO IL PIù DELLE VOLTE SALVATE E SCAMBIATE IN FILE DI TESTO.&quot;
+bio_text_format.upcase.downcase
+# =&gt; &quot;In bioinformatica\nle informazioni vengono il più delle volte salvate e scambiate in file di testo.&quot;</code></pre>
+</section><section id="stringhe-5" class="slide level2">
+<h1>Stringhe</h1>
+<h3 id="manipolazione-1">Manipolazione</h3>
+<p>Puliamo la stringa da spazi e a capo in testa e in coda</p>
+<pre><code>bio_text_format = &quot;\t\t\nIn bioinformatica\nle informazioni vengono il più delle volte salvate e scambiate in file di testo.\n\n\n\n\t\t  \n&quot;
+bio_text_format.strip
+# =&gt; &quot;In bioinformatica\nle informazioni vengono il più delle volte salvate e scambiate in file di testo.&quot;</code></pre>
+</section><section id="stringhe-6" class="slide level2">
+<h1>Stringhe</h1>
+<h3 id="manipolazione-2">Manipolazione</h3>
+<p>Rimuoviamo dal testo il carattere <em>a</em></p>
+<pre><code>bio_text_format = &quot;\t\t\nIn bioinformatica\nle informazioni vengono il più delle volte salvate e scambiate in file di testo.\n\n\n\n\t\t  \n&quot;
+bio_text_format.delete &#39;a&#39;
+# =&gt; &quot;In bioinformtic\nle informzioni vengono il più delle volte slvte e scmbite in file di testo.&quot;</code></pre>
+</section><section id="stringhe-7" class="slide level2">
+<h1>Stringhe</h1>
+<h3 id="manipolazione-3">Manipolazione</h3>
+<p>Cambiamo a mano il <em>newline</em></p>
+<pre><code>bio_text_format = &quot;In bioinformatica\nle informazioni vengono il più delle volte salvate e scambiate in file di testo.&quot;
+bio_text_format[17] = &#39; &#39;
+# =&gt; &quot; &quot;
+
+bio_text_format
+# =&gt; &quot;In bioinformatica le informazioni vengono il più delle volte salvate e scambiate in file di testo.&quot;</code></pre>
+</section><section id="stringhe-8" class="slide level2">
+<h1>Stringhe</h1>
+<h3 id="manipolazione-4">Manipolazione</h3>
+<p>Estrazione di una sotto stringa</p>
+<pre><code>bio_text_format = &quot;In bioinformatica\nle informazioni vengono il più delle volte salvate e scambiate in file di testo.&quot;
+bio_text_format[18..33]
+# =&gt; &quot;le informazioni &quot;</code></pre>
+</section><section id="stringhe-9" class="slide level2">
+<h1>Stringhe</h1>
+<h3 id="impediamo-la-manipolazione">Impediamo la Manipolazione</h3>
+<p>Cambiamo a mano il <em>newline</em></p>
+<pre><code>bio_text_format = &quot;In bioinformatica\nle informazioni vengono il più delle volte salvate e scambiate in file di testo.&quot;
+bio_text_format.freeze
+bio_text_format[17] = &#39; &#39;
+# RuntimeError: can&#39;t modify frozen String</code></pre>
+</section><section id="stringhe-10" class="slide level2">
+<h1>Stringhe</h1>
+<h3 id="manipolazione-e-pattern-matching">Manipolazione e Pattern Matching</h3>
+<p>Per poter sostituire parti di una stringa</p>
+<pre><code>bio_text_format = &quot;In bioinformatica\nle informazioni vengono il più delle volte salvate e scambiate in file di testo.&quot;
+bio_text_format.gsub(/le informazioni/,&#39;i dati&#39;).gsub(/ate/,&#39;ati&#39;)
+# =&gt; &quot;In bioinformatica\ni dati vengono il più delle volte salvati e scambiati in file di testo.&quot;</code></pre>
+</section><section id="stringhe-11" class="slide level2">
+<h1>Stringhe</h1>
+<h3 id="pattern-matching">Pattern Matching</h3>
+<pre><code>bio_text_format = &quot;In bioinformatica\nle informazioni vengono il più delle volte salvate e scambiate in file di testo.&quot;
+bio_text_format =~ /informazioni/
+# =&gt; 21
+
+$` # la parte di stringa prima del match
+# =&gt; &quot;In bioinformatica\nle &quot;
+
+$&amp; # ciò che l&#39;espressione regolare ha verificato
+# =&gt; &quot;informazioni&quot;
+
+$&#39; # la parte di stringa dopo il match
+# =&gt; &quot; vengono il più delle volte salvate e scambiate in file di testo.&quot;</code></pre>
+</section><section id="stringhe-12" class="slide level2">
+<h1>Stringhe</h1>
+<h3 id="pattern-matching-1">Pattern Matching</h3>
+<pre><code>bio_text_format = &quot;In bioinformatica\nle informazioni vengono il più delle volte salvate e scambiate in file di testo.&quot;
+bio_text_format =~ /informazioni/
+# =&gt; 21
+
+$` # la parte di stringa prima del match
+# =&gt; &quot;In bioinformatica\nle &quot;
+
+$&amp; # ciò che l&#39;espressione regolare ha verificato
+# =&gt; &quot;informazioni&quot;
+
+$&#39; # la parte di stringa dopo il match
+# =&gt; &quot; vengono il più delle volte salvate e scambiate in file di testo.&quot;</code></pre>
+<p>Spesso questo tipo di <em>pattern matching</em> viene utilizzato per verificare delle condizioni e operare delle scelte in funzione dell' input.</p>
+</section><section id="stringhe-13" class="slide level2">
+<h1>Stringhe</h1>
+<h3 id="pattern-matching-e-if-statement">Pattern Matching e If statement</h3>
+<p>Vogliamo sapere il # di GC nella sequenza ma solo se la stringa ha DNA come prefisso</p>
+<pre><code>sequence = &#39;DNA:acgtaggaccgacagcagatgcccgagatggacg&#39;
+
+if sequence =~ /DNA/
+  puts sequence.count &#39;gc&#39; #conta i singoli caratteri non la coppia 
+else
+  puts &#39;Non è DNA, non ha senso contato il conenuto di GC&#39;
+end
+
+# =&gt; 21</code></pre>
+</section><section id="stringhe-14" class="slide level2">
+<h1>Stringhe</h1>
+<h3 id="pattern-matching-e-if-statement-1">Pattern Matching e If statement</h3>
+<p>Vogliamo sapere il # di GC nella sequenza ma solo se la stringa ha DNA come prefisso ma in questo caso non ci serve una stringa di ritorno ma bensi il numero che andremo a salvare in una variabile</p>
+<pre><code>sequence = &#39;DNA:acgtaggaccgacagcagatgcccgagatggacg&#39;
+
+if sequence =~ /DNA/
+  gc = sequence.count &#39;gc&#39; #conta i singoli caratteri non la coppia 
+else
+  gc = 0
+end
+
+puts gc 
+
+# =&gt; 21</code></pre>
+</section><section id="stringhe-15" class="slide level2">
+<h1>Stringhe</h1>
+<h3 id="pattern-matching-e-if-statement-2">Pattern Matching e If statement</h3>
+<p>Vogliamo sapere il # di GC nella sequenza ma solo se la stringa ha DNA come prefisso ma in questo caso non ci serve una stringa di ritorno ma bensi il numero che andremo a salvare in una variabile</p>
+<pre><code>sequence = &#39;DNA:acgtaggaccgacagcagatgcccgagatggacg&#39;
+
+gc = if sequence =~ /DNA/
+  sequence.count &#39;gc&#39; #conta i singoli caratteri non la coppia 
+else
+  0
+end
+
+puts gc 
+
+# =&gt; 21</code></pre>
+</section><section id="stringhe-16" class="slide level2">
+<h1>Stringhe</h1>
+<h3 id="pattern-matching-e-if-statement-3">Pattern Matching e If statement</h3>
+<p>Vogliamo sapere il # di GC nella sequenza ma solo se la stringa ha DNA come prefisso ma in questo caso non ci serve una stringa di ritorno ma bensi il numero che andremo a salvare in una variabile</p>
+<pre><code>sequence = &#39;DNA:acgtaggaccgacagcagatgcccgagatggacg&#39;
+
+gc = sequence =~ /DNA/ ? sequence.count(&#39;gc&#39;) : 0
+
+puts gc 
+
+
+
+
+
+# =&gt; 21</code></pre>
+</section><section id="stringhe-17" class="slide level2">
+<h1>Stringhe</h1>
+<h3 id="pattern-matching-e-if-statement-4">Pattern Matching e If statement</h3>
+<p>Vogliamo sapere il # di GC nella sequenza ma solo se la stringa ha DNA come prefisso ma in questo caso non ci serve una stringa di ritorno ma bensi il numero che andremo a salvare in una variabile</p>
+<pre><code>sequence = &#39;DNA:acgtaggaccgacagcagatgcccgagatggacg&#39;
+
+gc = sequence.count(&#39;gc&#39;) if sequence =~ /DNA/
+
+puts gc 
+
+# =&gt; 21</code></pre>
+<p>In questo ultimo caso non ci interessa assegnare un valore a <em>gc</em> nel caso non sia DNA perchè probabilmente non ce ne faremmo nulla o comunque controlleremmo prima di usarlo.</p>
+</section><section id="stringhe-18" class="slide level2">
+<h1>Stringhe</h1>
+<h3 id="pattern-matching-e-if-statement-5">Pattern Matching e If statement</h3>
+<p>Vogliamo sapere il # di GC nella sequenza ma solo se la stringa ha DNA come prefisso ma in questo caso non ci serve una stringa di ritorno ma bensi il numero che andremo a salvare in una variabile</p>
+<pre><code>sequence = &#39;RNA:acgtaggaccgacagcagatgcccgagatggacg&#39;
+
+gc = sequence.count(&#39;gc&#39;) if sequence =~ /DNA/
+
+if gc
+  puts &quot;Il contenuto di GC nella sequenza di DNA è #{gc}&quot;
+end</code></pre>
+<p>non otterremo nulla perchè a <em>gc</em> viene attribuito il valore <em>nil</em> in automatico</p>
+</section><section id="tutto-è-un-oggetto" class="slide level2">
+<h1>Tutto è un oggetto</h1>
+</section><section id="un-id-univoco" class="slide level2">
+<h1>Un ID univoco</h1>
+<p>Ogni oggetto in Ruby è identificato da una chiave univoca che corrisponde all'ID dell'oggetto</p>
+<pre><code>bio_text_format = &quot;In bioinformatica\nle informazioni vengono il più delle volte salvate e scambiate in file di testo.&quot;
+# =&gt; 70347711225800
+object = ObjectSpace._id2ref(70347711225800) # questo è come e fosse un puntatore all&#39;oggetto bio_text_format
+object == bio_text_format
+# =&gt; true
+alt_string = &quot;In bioinformatica\nle informazioni vengono il più delle volte salvate e scambiate in file di testo.&quot;
+bio_text_format == alt_string
+# =&gt; true
+bio_text_format.equal? alt_string
+# =&gt; false
+alt_string.object_id 
+# =&gt; 70347702565640</code></pre>
+</section><section id="tutto-è-un-oggetto-1" class="slide level2">
+<h1>Tutto è un oggetto</h1>
+<p>Ecco come Ruby valuta/considera cosa noi gli diamo in input</p>
+<pre><code>[65] pry(main)&gt; [nil, &quot;1&quot;, :uno, 1, 3.5, YAML, Class, Module  ].each{|x| puts &quot;#{x.is_a? Object} #{x.is_a? Module} #{x.class} #{x.class.superclass}&quot;}
+
+--------------------------------------------------
+| Object | Module | Class Type | Main Class Type |
+--------------------------------------------------
+|  true  | false  |  NilClass  |    Object       |
+|  true  | false  |  String    |    Object       |
+|  true  | false  |  Symbol    |    Object       |
+|  true  | false  |  Fixnum    |    Integer      |
+|  true  | false  |  Float     |    Numeric      |
+|  true  | true   |  Module    |    Object       |
+|  true  | true   |  Class     |    Module       |
+|  true  | true   |  Class     |    Module       |
+--------------------------------------------------</code></pre>
+</section><section id="tutto-è-vero" class="slide level2">
+<h1>Tutto è vero</h1>
+</section><section id="tranne-nil-e-false" class="slide level2">
+<h1>Tranne <em>nil</em> e <em>false</em></h1>
+</section><section id="tranne-nil-e-false-1" class="slide level2">
+<h1>Tranne <em>nil</em> e <em>false</em></h1>
+<p>Perchè prima non ho ritornato il valore ZERO ?</p>
+<pre><code>sequence = &#39;RNA:acgtaggaccgacagcagatgcccgagatggacg&#39;
+
+gc = sequence.count(&#39;gc&#39;) if sequence =~ /DNA/
+
+if gc
+  puts &quot;Il contenuto di GC nella sequenza di DNA è #{gc}&quot;
+end</code></pre>
+</section><section id="tranne-nil-e-false-2" class="slide level2">
+<h1>Tranne <em>nil</em> e <em>false</em></h1>
+<p>Perchè prima non ho ritornato il valore ZERO ?</p>
+<pre><code>sequence = &#39;RNA:acgtaggaccgacagcagatgcccgagatggacg&#39;
+
+gc = sequence.count(&#39;gc&#39;) if sequence =~ /DNA/
+
+unless gc.nil? # if !gc.nil?
+  puts &quot;Il contenuto di GC nella sequenza di DNA è #{gc}&quot;
+end</code></pre>
+<p>Perchè in Ruby è sufficiente che un oggetto sia diverso da <em>nil</em> o da <em>false</em> perchè l'espressione in cui viene valutato risulti vera.</p>
+</section><section id="tranne-nil-e-false-3" class="slide level2">
+<h1>Tranne <em>nil</em> e <em>false</em></h1>
+<p>Perchè prima non ho ritornato il valore ZERO ?</p>
+<pre><code>sequence = &#39;RNA:acgtaggaccgacagcagatgcccgagatggacg&#39;
+
+gc = sequence.count(&#39;gc&#39;) if sequence =~ /DNA/
+
+
+puts &quot;Il contenuto di GC nella sequenza di DNA è #{gc}&quot; unless gc.nil? # if !gc.nil?</code></pre>
+<p>Perchè in Ruby è sufficiente che un oggetto sia diverso da <em>nil</em> o da <em>false</em> perchè l'espressione in cui viene valutato risulti vera.</p>
+</section><section id="tranne-nil-e-false-4" class="slide level2">
+<h1>Tranne <em>nil</em> e <em>false</em></h1>
+<p>Perchè prima non ho ritornato il valore ZERO ?</p>
+<pre><code>sequence = &#39;RNA:acgtaggaccgacagcagatgcccgagatggacg&#39;
+
+gc = sequence.count(&#39;gc&#39;) if sequence =~ /DNA/
+
+
+gc &amp;&amp; puts(&quot;Il contenuto di GC nella sequenza di DNA è #{gc}&quot;)</code></pre>
+<p>Perchè in Ruby è sufficiente che un oggetto sia diverso da <em>nil</em> o da <em>false</em> perchè l'espressione in cui viene valutato risulti vera.</p>
+</section><section id="assegnamenti" class="slide level2">
+<h1>Assegnamenti</h1>
+<p>Vogliamo scrivere uno script che ci permetta di avere una parametro di default nel caso l'utente non ci passi il nome del file in cui andremo a scrivere il nostro output.</p>
+<p>Perchè non usare le espressioni booleane a nostro vantaggio ?</p>
+</section><section id="assegnamenti-1" class="slide level2">
+<h1>Assegnamenti</h1>
+<p>Vogliamo scrivere uno script che ci permetta di avere una parametro di default nel caso l'utente non ci passi il nome del file in cui andremo a scrivere il nostro output</p>
+<pre><code>file_name = ARGV[0] || &quot;data-output.txt&quot;  #Short-Circuit Evaluation
+# mi serve assolutamente un nome di file
+
+file_name ||= ARGV[0]
+# il nome è opzionale e viene assegnato solo se l&#39;utente lo passa. Risulta ovvio che prima di utilizzare file_name per scrivere sul file devo verificare che il valore sia presente.</code></pre>
+</section><section id="assegnamenti-2" class="slide level2">
+<h1>Assegnamenti</h1>
+<p>Sono anche possibili assegnamenti multipli</p>
+<pre><code>nome, cognome, eta, sesso = &#39;John&#39;, &#39;Doe&#39;, 35, &#39;Male&#39;
+# =&gt; [&quot;John&quot;, &quot;Doe&quot;, 35, &quot;Male&quot;]</code></pre>
+</section><section id="assegnamenti-3" class="slide level2">
+<h1>Assegnamenti</h1>
+<p><em>swap</em> in un'unica istruzione</p>
+<pre><code>min = 100
+max = 35
+min, max = max, min if max &lt; min
+# =&gt; [35, 100]</code></pre>
+</section><section id="numeri" class="slide level2">
+<h1>Numeri</h1>
+<pre><code>f = 123
+f.class
+# =&gt; Fixnum
+b = 1234567890
+b.class
+# =&gt; Bignum</code></pre>
+</section><section id="numeri-1" class="slide level2">
+<h1>Numeri</h1>
+<pre><code>10    # i numeri decimali sono preceduti da 0d che però può essere omesso
+# =&gt; 10
+010   # i numeri ottali sono preceduti da uno 0
+# =&gt; 8
+0x10  # i numeri esadecimali sono preceduti da 0x
+# =&gt; 16
+0b10  # i numeri binari sono preceduti da 0b
+# =&gt; 2</code></pre>
+</section><section id="numeri-2" class="slide level2">
+<h1>Numeri</h1>
+<p>E' possibile convertire numeri in stringhe e stringhe in numeri</p>
+<pre><code>10.to_s
+# =&gt; &quot;10&quot;
+&quot;23&quot;.to_i
+23</code></pre>
+</section><section id="numeri-3" class="slide level2">
+<h1>Numeri</h1>
+<h3 id="operazioni-aritmetiche">Operazioni aritmetiche</h3>
+<ul>
+<li>+</li>
+<li><code>-</code> binario ( x - y )</li>
+<li>*</li>
+<li>/ divisione per interi se non specificato</li>
+<li>% modulo</li>
+<li>** evelazione a potenza</li>
+<li><code>-</code> cambio di segno (-x)</li>
+</ul>
+</section><section id="array" class="slide level2">
+<h1>Array</h1>
+<p>Gli array possono contentere tipi di dati eterogenei</p>
+<pre><code>ary = [ 10, &#39;Dieci&#39;, :dieci, 55.33]
+
+puts ary[0]
+# =&gt; 10
+
+puts ary[-1]
+# =&gt; 55.33</code></pre>
+</section><section id="array-1" class="slide level2">
+<h1>Array</h1>
+<p>nel caso di array di stringhe questi possono essere creati usando una sintassi particolare</p>
+<pre><code>ary = %w( uomo cane gatto pesce oca)
+
+puts ary[0]
+# =&gt; uomo
+
+puts ary[-1]
+# =&gt; oca</code></pre>
+</section><section id="array-2" class="slide level2">
+<h1>Array</h1>
+<h3 id="operazioni">Operazioni</h3>
+<pre><code>ary_one = %w( uomo cane gatto pesce oca)
+ary_two = [ 10, &#39;Dieci&#39;, :dieci, 55.33, &#39;pesce&#39;]
+
+ary_union = (ary_one + ary_two)
+# =&gt; [&quot;uomo&quot;, &quot;cane&quot;, &quot;gatto&quot;, &quot;pesce&quot;, &quot;oca&quot;, 10, &quot;Dieci&quot;, :dieci, 55.33, &quot;pesce&quot;]
+
+ary_union = (ary_one + ary_two).uniq
+# =&gt; [&quot;uomo&quot;, &quot;cane&quot;, &quot;gatto&quot;, &quot;pesce&quot;, &quot;oca&quot;, 10, &quot;Dieci&quot;, :dieci, 55.33]
+
+ary_union.sort
+# =&gt; ArgumentError: comparison of String with 10 failed</code></pre>
+<p>Per alcune operazioni non è possibile operare su tipi di dato che non siano compabili.</p>
+</section><section id="hash" class="slide level2">
+<h1>Hash</h1>
+<p>Ruby li utilizza largamente:</p>
+<ul>
+<li>strutture dati come Struct, OpenStruct sono Hash con steroidi</li>
+<li>il passaggio di parametri opzionali ai metodi è basato su hash</li>
+<li>veloci db/dizionari in memoria</li>
+</ul>
+</section><section id="hash-1" class="slide level2">
+<h1>Hash</h1>
+<pre><code>hash = { &#39;dna&#39; =&gt;&#39;acido desossiribonucleico&#39;,
+         &#39;rna&#39; =&gt; &#39;acido ribonucleico&#39;
+       }</code></pre>
+<p>le chiavi di un hash possono essere di diversi tipi. Generalmente quando si vogliono utilizzare delle <em>stringhe</em> come chiavi è meglio utilizzare i <em>simboli</em></p>
+</section><section id="hash-2" class="slide level2">
+<h1>Hash</h1>
+<h3 id="simboli">Simboli</h3>
+<pre><code>hash = { :dna =&gt;&#39;acido desossiribonucleico&#39;,
+         :rna =&gt; &#39;acido ribonucleico&#39;
+       }</code></pre>
+<p>Nel caso degli Hash i simboli sono usati moltissimo. I simboli sono da considerarsi come delle etichette il cui nome ha un significato, di per se non contengono nessun valore. Non sono da confondere con le stringhe, infatti sono un tipo a parte.</p>
+<pre><code>dna = :dna
+rna = :rna
+dna.class
+# =&gt; Symbol
+dna_x = :dna
+dna.object_id
+# =&gt; 1387528
+dna_x.object_id
+# =&gt; 1387528</code></pre>
+</section><section id="iteratori" class="slide level2">
+<h1>Iteratori</h1>
+<p>Ruby ci permette di iterare su molti tipi di dati: Stringhe, Array, Hash e il più delle volte non dobbiamo nemmeno più utilizzare quei <em>brutti</em> costrutti quali <em>while</em>, <em>for</em>, <em>loop</em>, ... Invece possiamo in modo elegante utilizzare la parola magica <strong>each</strong></p>
+</section><section id="iteratori-1" class="slide level2">
+<h1>Iteratori</h1>
+<p>Scorrere il contenuto di un array e recuperare il tipo di dato</p>
+<pre><code>ary = [ 10, &#39;Dieci&#39;, :dieci, 55.33, &#39;pesce&#39;]
+ary.each do |item|
+  puts item.class
+end
+# Fixnum
+# String
+# Symbol
+# Float
+# String</code></pre>
+</section><section id="iteratori-2" class="slide level2">
+<h1>Iteratori</h1>
+<pre><code>dict = Hash.new(0)
+sequence = &#39;acgtaggaccgacagcagatgcccgagatggacg&#39;
+sequence.each_char do |car|
+  dict[car]+=1
+end
+# =&gt; {&quot;a&quot;=&gt;10, &quot;c&quot;=&gt;9, &quot;g&quot;=&gt;12, &quot;t&quot;=&gt;3}</code></pre>
+</section><section id="iteratori-3" class="slide level2">
+<h1>Iteratori</h1>
+<pre><code>dict = Hash.new(0)
+sequence = &#39;acgtaggaccgacagcagatgcccgagatggacg&#39;
+sequence.each_char do |car|
+  dict[car]+=1
+end
+# =&gt; {&quot;a&quot;=&gt;10, &quot;c&quot;=&gt;9, &quot;g&quot;=&gt;12, &quot;t&quot;=&gt;3}
+
+puts dict.keys
+# a
+# c
+# g
+# t</code></pre>
+</section><section id="iteratori-4" class="slide level2">
+<h1>Iteratori</h1>
+<pre><code>dict = Hash.new(0)
+sequence = &#39;acgtaggaccgacagcagatgcccgagatggacg&#39;
+sequence.each_char do |car|
+  dict[car]+=1
+end
+# =&gt; {&quot;a&quot;=&gt;10, &quot;c&quot;=&gt;9, &quot;g&quot;=&gt;12, &quot;t&quot;=&gt;3}
+
+dict.each_pair do |car, n|
+  #allineiamo i numeri a destra
+  printf &quot;%s -&gt; %2d\n&quot;, car, n
+end
+# a -&gt; 10
+# c -&gt;  9
+# g -&gt; 12
+# t -&gt;  3</code></pre>
+</section><section id="iteratori-5" class="slide level2">
+<h1>Iteratori</h1>
+<p>Creiamo una sequenza tandem</p>
+<pre><code>seq = &#39;acgtag&#39;
+n = 5
+tandem = &#39;&#39;
+n.times { tandem+= seq}</code></pre>
+</section><section id="iteratori-6" class="slide level2">
+<h1>Iteratori</h1>
+<p>Creiamo una sequenza tandem</p>
+<pre><code>seq = &#39;acgtag&#39;
+n = 5
+tandem = &#39;&#39;
+n.times { |i| tandem+= seq; puts &quot;#{i}: #{tandem}&quot;}
+
+# 0: acgtag
+# 1: acgtagacgtag
+# 2: acgtagacgtagacgtag
+# 3: acgtagacgtagacgtagacgtag
+# 4: acgtagacgtagacgtagacgtagacgtag</code></pre>
+</section><section id="blocchi" class="slide level2">
+<h1>Blocchi</h1>
+<p>Gli iteratori sono <strong>cool</strong> ma da soli non bastano!</p>
+</section><section id="blocchi-1" class="slide level2">
+<h1>Blocchi</h1>
+<p>Gli iteratori sono <strong>cool</strong> ma da soli non bastano!</p>
+<p>Abbiamo bisogno dei <strong>BLOCCHI</strong></p>
+</section><section id="blocchi-2" class="slide level2">
+<h1>Blocchi</h1>
+<p>Gli iteratori sono <strong>cool</strong> ma da soli non bastano!</p>
+<p>Abbiamo bisogno dei <strong>BLOCCHI</strong></p>
+<pre><code>3.times{ puts &quot;BLOCK ROCKS!&quot; }</code></pre>
+</section><section id="blocchi-3" class="slide level2">
+<h1>Blocchi</h1>
+<p>Gli iteratori sono <strong>cool</strong> ma da soli non bastano!</p>
+<p>Abbiamo bisogno dei <strong>BLOCCHI</strong></p>
+<pre><code>3.times{ puts &quot;BLOCK ROCKS!&quot; }</code></pre>
+<p>Intuitivamente il <em>blocco</em> è una porzione di codice che può essere passata a un metodo che successivamente lo esegue.</p>
+<p>Iteratore</p>
+<pre><code>3.times </code></pre>
+<p>Bloccco</p>
+<pre><code>{ puts &quot;BLOCK ROCKS!&quot; }</code></pre>
+</section><section id="blocchi-4" class="slide level2">
+<h1>Blocchi</h1>
+<pre><code>3.times { puts &quot;BLOCK ROCKS!&quot; }</code></pre>
+<p><strong>=</strong></p>
+<pre><code>3.times do
+  #just add a line to use a multi line block
+  puts &quot;BLOCK ROCKS!&quot;
+end</code></pre>
+</section><section id="blocchi-5" class="slide level2">
+<h1>Blocchi</h1>
+<p>Possiamo anche stampare il numero di iterazione</p>
+</section><section id="blocchi-6" class="slide level2">
+<h1>Blocchi</h1>
+<p>Possiamo anche stampare il numero di iterazione</p>
+<pre><code>3.times do |index|
+  puts &quot;#{index} BLOCK ROCKS!&quot;
+end
+
+# 0 BLOCK ROCKS!
+# 1 BLOCK ROCKS!
+# 2 BLOCK ROCKS!</code></pre>
+</section><section id="blocchi-7" class="slide level2">
+<h1>Blocchi</h1>
+<p>Possiamo costruire un metodo che accetta un blocco di codice e lo esegue</p>
+<pre><code>def crunch
+  puts &quot;All&#39; interno di crunch&quot;
+  yield
+end
+
+crunch { puts &#39;esegue il mio blocco&#39;}
+
+# All&#39; interno di crunch
+# esegue il mio blocco</code></pre>
+</section><section id="blocchi-8" class="slide level2">
+<h1>Blocchi</h1>
+<p>Possiamo costruire un metodo che accetta un blocco di codice e lo esegue</p>
+<pre><code>def crunch(name)
+  puts &quot;All&#39; interno di crunch&quot;
+  puts name
+  yield
+end
+
+crunch(&#39;Ruby&#39;) { puts &#39;esegue il mio blocco&#39;}
+
+# All&#39; interno di crunch
+# Ruby
+# esegue il mio blocco</code></pre>
+</section><section id="blocchi-9" class="slide level2">
+<h1>Blocchi</h1>
+<p>Possiamo anche passare un parametro direttamente al blocco</p>
+<pre><code>def crunch(name)
+  puts &quot;All&#39; interno di crunch&quot;
+  yield name
+end
+
+crunch(&#39;Ruby&#39;) do |name| 
+  puts &quot;#{name.upcase} esegue il mio blocco&quot;
+end
+
+# All&#39; interno di crunch
+# RUBY esegue il mio blocco</code></pre>
+</section><section id="blocchi-10" class="slide level2">
+<h1>Blocchi</h1>
+<p>Possiamo anche passare più di un parametro direttamente al blocco</p>
+<pre><code>def crunch(name)
+  std_message = &quot;All&#39; interno di crunch&quot;
+  yield std_message, name
+end
+
+crunch(&#39;Ruby&#39;) do |message, name| 
+  puts &quot;#{message} #{name.upcase} esegue il mio blocco&quot;
+end
+
+# All&#39; interno di crunch RUBY esegue il mio blocco</code></pre>
+</section><section id="blocchi-11" class="slide level2">
+<h1>Blocchi</h1>
+<p>I blocchi possono essere anche opzionali all'interno di un metodo. Abbiamo quindi un comportamento di <em>default</em> e uno <em>particolare</em> nel caso di un blocco</p>
+<pre><code>def crunch(name)
+  std_message = &quot;All&#39; interno di crunch&quot;
+  if block_given?
+    yield std_message, name
+  else
+    puts &quot;#{std_message} non ho nulla da fare -_-&#39;&quot;
+  end
+end
+
+crunch(&#39;Ruby&#39;)
+# All&#39; interno di crunch non ho nulla da fare -_-&#39;
+
+crunch(&#39;Ruby&#39;){|message, name| puts &quot;#{message} #{name} deve ancora fare molto lavoro.&quot; }
+# All&#39; interno di crunch Ruby deve ancora fare molto lavoro.</code></pre>
+</section><section id="proc---lambda" class="slide level2">
+<h1>Proc - Lambda</h1>
+<pre><code>block = Proc.new {|first, second| puts &quot;My firsy name is #{first} and the last name is #{second}&quot;}
+# =&gt; #&lt;Proc:0x007fee1328cec8@(pry):61&gt;
+
+block.call(&#39;John&#39;, &#39;Doe&#39;, &#39;Unkown&#39;)
+# My firsy name is John and the last name is Doe
+
+lambda_block = lambda {|first, second| puts &quot;My firsy name is #{first} and the last name is #{second}&quot;}
+# =&gt; #&lt;Proc:0x007fee133952c0@(pry):63 (lambda)&gt;
+
+lambda_block.call(&#39;John&#39;, &#39;Doe&#39;, &#39;Unkown&#39;)
+# ArgumentError: wrong number of arguments (3 for 2)</code></pre>
+<p>Esistono due differenze sostanziali tra Proc e funzioni Lambda:</p>
+<ul>
+<li>la funzione Lambda effettua il controllo sull'arietà dei parametri mentre Proc no</li>
+<li>quando inserita in un metodo il return presente in una Proc ritorna subito (termina l'esecuzione del metodo in cui è chiamata)</li>
+</ul>
+</section><section id="io" class="slide level2">
+<h1>I/O</h1>
+<p>Un esempio di utilizzo dei blocci è tramite l'accesso ai file. Supponiamo che vogliamo fare una copia di un file.</p>
+<pre><code>File.open(&quot;dna_sequence.fasta&quot;,&#39;r&#39;) do |rfile|
+  File.open(&quot;dna_sequence.fasta.backup&quot;,&#39;w&#39;) do |wfile|
+    rfile.each_line do |rline|
+      wfile.write(rline)
+    end
+  end
+end #si preoccupa di chiudere l&#39;handler in letture</code></pre>
+</section><section id="io-1" class="slide level2">
+<h1>I/O</h1>
+<p>Ci sono diversi iteratori per la lettura di un file</p>
+<pre><code>file.each_byte
+
+file.each_char
+
+file.each_line
+
+file.readline
+
+file.readlines #carica tutto il file in memoria creando un array di array</code></pre>
+</section><section id="da-procedurale-a-oo" class="slide level2">
+<h1>Da Procedurale a OO</h1>
+<p>Creiamo una sequenza tandem ma cerchiamo di farlo in modo semplice</p>
+<pre><code>seq = &#39;acgtag&#39;
+n = 5
+tandem = seq * n
+
+# 0: acgtag
+# 1: acgtagacgtag
+# 2: acgtagacgtagacgtag
+# 3: acgtagacgtagacgtagacgtag
+# 4: acgtagacgtagacgtagacgtagacgtag</code></pre>
+<p>Alcune operazioni aritmentiche possono quindi essere applicate a differenti tipi di dati e il comportamento è specifico di quel tipo.</p>
+</section><section id="classi" class="slide level2">
+<h1>Classi</h1>
+<p>Potremmo anche creare un metodo che genera un tandem a partire da una stringa</p>
+<pre><code># La sequenza tandem di una stringa è la stringa ripetuta
+# n volte
+def tandem(seq, n=1)
+  seq * n 
+end</code></pre>
+<p>ma dato che non c'è controllo sui tipi dei parametri nel caso</p>
+<pre><code>seq = nil</code></pre>
+<p>otterremo un</p>
+<pre><code>NoMethodError: undefined method `*&#39; for nil:NilClass</code></pre>
+</section><section id="classi-1" class="slide level2">
+<h1>Classi</h1>
+<p>Potremmo quindi modificare il metodo</p>
+<pre><code>def tandem(seq, n)
+  seq * n unless seq.nil?
+end</code></pre>
+<p>Non vi pare un pò sporca come cosa, molto procedurale?</p>
+<p>Una soluzione potrebbe essere quella di estendere la classe <strong>String</strong>* e aggiungere il metodo <strong>tandem</strong></p>
+</section><section id="classi-2" class="slide level2">
+<h1>Classi</h1>
+<h3 id="estendiamo-string">Estendiamo String</h3>
+<pre><code>class String
+  def tandem(n=1)
+    self * n
+  end
+end</code></pre>
+</section><section id="classi-3" class="slide level2">
+<h1>Classi</h1>
+<h3 id="estendiamo-string-1">Estendiamo String</h3>
+<pre><code>class String
+  def tandem(n=1)
+    self * n
+  end
+end</code></pre>
+<ul>
+<li>passaggio dei parametri a default</li>
+<li><em>self</em> che è la referenza all'oggetto istanziato su cui viene chiamato il metodo</li>
+</ul>
+</section><section id="classi-4" class="slide level2">
+<h1>Classi</h1>
+<h3 id="estendiamo-string-2">Estendiamo String</h3>
+<pre><code>class String
+  def tandem(n=1)
+    self * n
+  end
+end</code></pre>
+<p>Tuttavia non ha molto senso che tutte le stringe possano generare dei <em>tandem</em> dato che per noi riveste un significato solo nel contesto biologico.</p>
+</section><section id="classi-5" class="slide level2">
+<h1>Classi</h1>
+<h3 id="una-classe-biostring">una classe BioString</h3>
+<p>estendendola con il nostro metodo <em>tandem</em></p>
+<pre><code>class BioString &lt; String
+  def tandem(n=1)
+    self * n
+  end
+end
+
+string = &quot;agcgatgca&quot;
+string.tandem 10
+# =&gt; NoMethodError: undefined method `tandem&#39; for &quot;agcgatgca&quot;:String    
+
+sequence = BioString.new &quot;agcgatgca&quot;
+tandem = sequence.tandem 2
+sequence.object_id
+# =&gt; 70341335399180
+tandem.object_id
+# =&gt; 70341347607400</code></pre>
+</section><section id="classi-6" class="slide level2">
+<h1>Classi</h1>
+<h3 id="una-classe-biostring-1">una classe BioString</h3>
+<p>ma vorremmo anche avere un metodo che mi permetta di modificare in modo permanente la mia stringa</p>
+<pre><code>class BioString &lt; String
+  def tandem!(n=1)
+    self &lt;&lt; self * (n-1)
+  end
+end
+
+sequence = BioString.new &quot;agcgatgca&quot;
+tandem = sequence.tandem! 2
+sequence.object_id
+# =&gt; 70341335399180
+tandem.object_id
+# =&gt; 70341335399180</code></pre>
+<p><em>sequence</em> e <em>tandem</em> puntano allo stesso oggetto perchè bisgna sapere che in Ruby il valore ritornato da un metodo è sempre l'ultima espressione valutata dal metodo che è stato chiamato.</p>
+</section><section id="classi-7" class="slide level2">
+<h1>Classi</h1>
+<p>Aggiungiamo degli attributi</p>
+<pre><code>class BioString &lt; String
+  attr_accessor :name
+end
+
+bs = BioString.new &quot;acgtaggacgcagt&quot;
+bs.name
+# =&gt; nil
+
+bs.name = &quot;DNA:unkown&quot;
+bs.name
+# =&gt; DNA:unkown</code></pre>
+</section><section id="classi-8" class="slide level2">
+<h1>Classi</h1>
+<p>Aggiungiamo degli attributi e variabili di istanza</p>
+<pre><code>class BioString &lt; String
+  attr_accessor :name
+
+  def initialize(str=nil)
+    super(str)
+    @quality = :unkown
+  end
+end
+
+bs = BioString.new &quot;acgtaggacgcagt&quot;
+bs.quality
+# =&gt; NoMethodError: undefined method `quality&#39; for &quot;acgtaggacgcagt&quot;:BioString</code></pre>
+<p>se vogliamo che le variabili siano inizializzare durante la creazione dell'oggetto dobbiamo dichiararle esplicitamente in <em>initialize</em></p>
+</section><section id="classi-9" class="slide level2">
+<h1>Classi</h1>
+<p>Aggiungiamo degli attributi</p>
+<pre><code>class BioString &lt; String
+  attr_accessor :name
+  attr_reader :quality
+
+  def initialize(str=nil)
+    super(str)
+    @quality = :unkown
+  end
+end
+
+bs = BioString.new &quot;acgtaggacgcagt&quot;
+bs.name = &quot;DNA:Unknonw&quot;
+# =&gt; DNA:Unknonw
+
+bs.quality
+# =&gt; :unkown</code></pre>
+<p>Le variabili di istanza si possono chiamare solo tramite metodi dell'oggetto.</p>
+</section><section id="classi-10" class="slide level2">
+<h1>Classi</h1>
+<p>Variabili di classe</p>
+<p>E' possibile creare delle variabili che siano condivise da tutti gli oggetti appartenenti alla medesima classe.</p>
+<pre><code>class BioString &lt; String
+  @@counter = 0
+
+  def counter
+    @@counter
+  end
+
+  def initialize(str=nil)
+    super(str)
+    @@counter +=1
+  end
+end
+
+bs = BioString.new &quot;acgtaggacgcagt&quot;
+bs.counter
+# =&gt; 1
+
+bs_short = BioString.new &quot;acg&quot;
+bs_short.counter
+# =&gt; 2</code></pre>
+<p>Esistono anche le variabili globali definite con $ ma non sono usate frequentemente. Si usano per condividere parametri di configurazione o di ambiente.</p>
+</section><section id="variabili-e-metodi" class="slide level2">
+<h1>Variabili e Metodi</h1>
+<pre><code>$  # globale
+@@ # classe
+@  # istanza</code></pre>
+<p>solo tramite medoti è possibile accedere alle variabili</p>
+<pre><code>public    # tutti li possono chiamare
+protected # solo oggetti della stessa classe possono chiamarli
+private   # solo l&#39;oggetto può chiamare i metodi definiti nella classe</code></pre>
+</section><section id="metodi" class="slide level2">
+<h1>Metodi</h1>
+<h3 id="argomenti-opzionali">Argomenti opzionali</h3>
+<pre><code>def converti(str, scala=:upcase)
+  if scala == :upcase
+    str.upcase
+  elsif scala == :downcase
+    str.downcase
+  else
+    str
+  end
+end
+
+converti(&quot;agtagacccccccggt&quot;)
+# =&gt; agtagacccccccggt
+converti(&quot;agtagacccccccggt&quot;, :upcase)
+# =&gt; AGTAGACCCCCCCGGT
+converti(&quot;AGTAGACCCCCCCGGT&quot;, :downcase)</code></pre>
+</section><section id="metodi-1" class="slide level2">
+<h1>Metodi</h1>
+<h3 id="argomenti-opzionali-hash">Argomenti opzionali: Hash</h3>
+<pre><code>def converti(str, opt={})
+  if opt[:upcase]
+    str.upcase
+  elsif opt[:downcase]
+    str.downcase
+  else
+    str
+  end
+end
+
+converti(&quot;agtagacccccccggt&quot;)
+# =&gt; agtagacccccccggt
+converti(&quot;agtagacccccccggt&quot;, :upcase =&gt; true)
+# =&gt; AGTAGACCCCCCCGGT
+converti(&quot;AGTAGACCCCCCCGGT&quot;, :downcase =&gt; true)
+# =&gt; agtagacccccccggt</code></pre>
+<p>Questo è la metodologia più comune per il passaggio di parametri in Ruby.</p>
+</section><section id="metodi-2" class="slide level2">
+<h1>Metodi</h1>
+<h3 id="singleton">Singleton</h3>
+<p>Sono metodi che appartengono solo a una specifica istanza di un oggetto</p>
+<pre><code>bs = BioString.new &quot;acgtaggacgcagt&quot;
+
+def bs.converti(opt={})
+  if opt[:upcase]
+    upcase
+  elsif opt[:downcase]
+    downcase
+  else
+    self
+  end
+end
+
+bs.converti :upcase=&gt; true
+# =&gt; &quot;ACGTAGGACGCAGT&quot;
+
+ss = BioString.new &quot;acgtaggacgcagt&quot;
+ss.converti :upcase=&gt; true
+# =&gt; NoMethodError: undefined method `converti&#39; for &quot;acgtaggacgcagt&quot;:BioString</code></pre>
+<p>Questo perchè il metodo <em>converti</em> esiste solo per l'oggetto <em>bs</em></p>
+</section><section id="metodi-3" class="slide level2">
+<h1>Metodi</h1>
+<h3 id="messaggi">Messaggi</h3>
+<p>Dato che in Ruby tutto è un oggetto il metodo con cui vengono effettuare le chiamate agli oggetti è quello dei <em>messaggi</em>. E' quindi possibile <em>spedire una richiesta</em> di un metodo a un preciso oggetto (ID):</p>
+<pre><code>&quot;acgacgacagt&quot;.send :upcase
+# =&gt; &quot;ACGACGACAGT&quot;</code></pre>
+<p>cosa accade però se l'oggetto non è in grado di rispondere ?</p>
+</section><section id="metodi-4" class="slide level2">
+<h1>Metodi</h1>
+<h3 id="method_missing"><em>method_missing</em></h3>
+<ul>
+<li>Alla fine di una chiamata, quando Ruby ha provato a cercare il metodo in tutti i livelli, genera una eccezzione chiamando un metodo speciale “method_missing”</li>
+<li><p>Come puo essere usato method_missing ? Di solito viene intercettato e si predispone una azione</p>
+<p>class String def method_missing(m, *args, &amp;block)<br /> puts &quot;There's no method called #{m} here -- please try again.&quot; end<br />end</p></li>
+</ul>
+</section><section id="mixing" class="slide level2">
+<h1>Mixing</h1>
+<h3 id="moduli-namespace">Moduli &amp; NameSpace</h3>
+<pre><code>module Bio
+  class Sequence &lt; String
+  end
+end
+
+s=Bio::Sequence.new
+#=&gt; &quot;&quot;
+#[3] pry(main)&gt; s.class.ancestors
+#=&gt; [Bio::Sequence,
+# String,
+# Comparable,
+# Object,
+# PP::ObjectMixin,
+# Kernel,
+# BasicObject]</code></pre>
+</section><section id="mixing-1" class="slide level2">
+<h1>Mixing</h1>
+<h3 id="extand-arrays-with-stats-functions">Extand Arrays with Stats functions</h3>
+<p>non possiamo calcolare la media perchè la funzione non è implementata per gli array possiamo però creare un <em>Modulo</em> cosi da estendere la classe Array</p>
+<pre><code>module Statistica
+  def media
+    if map{|item| item.is_a?(Numeric)}.uniq.size == 1
+      inject(0){|sum, item| sum+item}/size.to_f
+    end
+  end 
+end 
+
+class Array
+  include Statistica
+end
+
+ary = [1, 2]
+ary.media</code></pre>
+</section><section id="metaprogrammazione" class="slide level2">
+<h1>Metaprogrammazione</h1>
+<p>Il <em>messaging</em>, i metodi <em>singleton</em>, il <em>mixing</em> se utilizzati a runtime sono tutte tecniche di metaprogrammazione. La Metaprogrammazione è sostanzialmente una tecnica di programmazione tramite la quale il codice genera nuovo codice che estende le funzionalità del programma istantaneamente.</p>
+<p>Roby On Rails come tutti i Domain Specific Language (DSL) sviluppati con Ruby sono esempi di metaprogrammazione, più o meno complicata che siano.</p>
+</section><section id="testing" class="slide level2">
+<h1>Testing</h1>
+<h3 id="cucumber">Cucumber</h3>
+<pre><code>Feature: Division
+  In order to avoid silly mistakes
+  Cashiers must be able to calculate a fraction
+
+  Scenario: Regular numbers
+    * I have entered 3 into the calculator
+    * I have entered 2 into the calculator
+    * I press divide
+    * the result should be 1.5 on the screen</code></pre>
+<p>e il codice per la verifica</p>
+<pre><code>Given /I have entered (\d+) into the calculator/ do |n|
+  @calc.push n.to_i
+end
+ 
+When /I press (\w+)/ do |op|
+  @result = @calc.send op
+end
+ 
+Then /the result should be (.*) on the screen/ do |result|
+  @result.should == result.to_f
+end</code></pre>
+</section><section id="testing-1" class="slide level2">
+<h1>Testing</h1>
+<h3 id="rspec">RSpec</h3>
+<p>RSpec is testing tool for the Ruby programming language. Born under the banner of Behaviour-Driven Development, it is designed to make Test-Driven Development a productive and enjoyable experience.</p>
+<pre><code>describe Stack do
+  context &quot;when new&quot; do
+    it { should be_empty }
+    it { should have(0).items }
+  end
+end</code></pre>
+<p>producendo un output semplice e chiaro</p>
+<pre><code>Stack
+  when new
+    should be empty
+    should have 0 items
+
+Finished in 0.00089 seconds
+2 examples, 0 failures</code></pre>
+</section><section id="testing-2" class="slide level2">
+<h1>Testing</h1>
+<h3 id="unit-test">Unit test</h3>
+<p>E' il livello più basso come esperienza di testing perchè si preoccupa di verificare le singole funzioni degli oggetti e risulta anche molto meno espressivo</p>
+<pre><code># File:  tc_bio_sequence.rb
+ 
+require &quot;./bio_sequence&quot;
+require &quot;test/unit&quot;
+ 
+class TestBioSequence &lt; Test::Unit::TestCase
+ 
+  def test_sequence
+    assert_equal(&#39;acgtacgt&#39;, Bio::Sequence.new(&#39;acgtacgt&#39;) )
+    assert_equal(&#39;ACGTACGT&#39;, Bio::Sequence.new(&#39;acgtacgt&#39;).upcase )
+  end
+ 
+end</code></pre>
+</section><section id="java-ruby" class="slide level2">
+<h1>Java &gt;&gt; Ruby</h1>
+<h3 id="cosa-è-uguale">Cosa è uguale</h3>
+<ul>
+<li>Garbage collector</li>
+<li>Gli oggetti una volta istanziati sono fortemente tipizzati</li>
+<li>Esistono metodi <em>pubblici</em>, <em>protetti</em> e <em>privati</em></li>
+<li>La documentazione è inclusa nel codice generalmente RDoc ~= Javadoc</li>
+</ul>
+</section><section id="java-ruby-1" class="slide level2">
+<h1>Java &gt;&gt; Ruby</h1>
+<h3 id="cosa-è-diverso">Cosa è diverso</h3>
+<ul>
+<li>Nessuna compilazione, il codice è eseguito direttamente</li>
+<li>End al posto delle parentesi</li>
+<li>Si usa require non import</li>
+<li>Le variabili sono private, si devono usare dei metodi per accedervi</li>
+<li>Chiamando I metodi le parentesi sono opzionali</li>
+<li>Tutto è un oggetto, anche I numeri</li>
+<li>I tipi sono verificati a runtime</li>
+<li>I nomi delle variabili sono solo etichette, non è possibile associarvi un tipo</li>
+</ul>
+</section><section id="java-ruby-2" class="slide level2">
+<h1>Java &gt;&gt; Ruby</h1>
+<h3 id="cosa-è-diverso-1">Cosa è diverso</h3>
+<ul>
+<li>Assegnamento del tipo contestuale</li>
+<li>Non esiste la conversione viene creato un nuovo oggetto</li>
+<li>Il costruttore è chiamato “initialize” non il nome della classe</li>
+<li>Non esistono interfacce ma solo il mixing</li>
+<li>XML è sostituito da YAML</li>
+<li>Null è nil</li>
+<li>== verifica l’equivalenza di due oggetti. equal? Verifica che gli oggetti siano gli stessi.</li>
+</ul>
+</section></section>
+<section><section id="librerie-esterne" class="titleslide slide level1"><h1>Librerie esterne</h1></section><section id="rubygems" class="slide level2">
+<h1>RubyGems</h1>
+<p>RubyGems è un gestore di pacchetti per Ruby e anche il sito web di riferimento per i pacchetti stessi. <img src="rubygems-75.png" alt="Rubygems" /></p>
+</section><section id="ruby-on-rails" class="slide level2">
+<h1>Ruby on Rails</h1>
+<p>Il più famoso framework di sviluppo web del mondo Ruby, è in pratica la gemma che ha diffuso in modo virale Ruby. <img src="ror.png" alt="RoR" /></p>
+</section><section id="sinatra-padrino" class="slide level2">
+<h1>Sinatra &amp; Padrino</h1>
+<p>Due alternative a Ruby on Rails, basati sulla semplicità di utilizzo e immediatezza. Sono ottimi per disegnare applicazioni web e specialmente API RESTFUL.</p>
+</section><section id="parallel" class="slide level2">
+<h1>Parallel</h1>
+<p>Ci permette suddividendo in anticipo i dati iniziali di eseguire in parallelo lo stesso codice.</p>
+</section><section id="thor" class="slide level2">
+<h1>Thor</h1>
+<p>Una libreria molto comoda per sviluppare velocemente applicazioni a riga di comando, permette una gestione sofisticata mal allo stesso tempo intuitiva dei parametri.</p>
+</section><section id="bundler" class="slide level2">
+<h1>Bundler</h1>
+<p>Permette la creazione di gemme e ne gestisce le dipendenze nella fase di sviluppo.</p>
+</section><section id="biogem" class="slide level2">
+<h1>Biogem</h1>
+<p><a href="http://github.com/helios/bioruby-gem">Raoul Bonnal</a> Crea uno scaffold con le dipendenze necessarie per sviluppare altre gemme per la bioinformatica e il <a href="http://www.biogems.info/">sito web</a> raccoglie tutti i pacchetti <strong>Bio</strong></p>
+<ul>
+<li><a href="http://github.com/helios/bioruby-gem/Tutorial.md">Tutorial</a></li>
+</ul>
+<figure>
+<img src="biogem.png" alt="BioGem Site" /><figcaption>BioGem Site</figcaption>
+</figure>
+</section><section id="bioruby" class="slide level2">
+<h1>BioRuby</h1>
+<p>E' una libreria specifica per la BioInformatica che permette la manipolazione e gestione di diversi oggetti <em>biologici</em>: sequence analysis, pathway analysis, protein modelling and phylogenetic analysis. Supporta molti formati di dati e permette l'interrogazione/interazione remota dei più noti database pubblici tra cui BAST,KEGG, GenBank, MEDLINE, GO.</p>
+<ul>
+<li><a href="http://bioruby.open-bio.org/wiki/">Wiki page</a></li>
+<li><a href="http://bioruby.open-bio.org/wiki/Tutorial">Tutorial</a></li>
+<li><a href="http://bioruby.open-bio.org/wiki/SampleCodes">Sample codes</a></li>
+<li><a href="http://bioruby.org/rdoc/">API documentation</a></li>
+</ul>
+</section><section id="plotrb" class="slide level2">
+<h1>Plotrb</h1>
+<p><a href="https://github.com/zuhao/plotrb">Wan Zuhao</a></p>
+<p>Plotrb is an experimental plotting library for the Ruby language. It brings the simplicity of Vega and the power of D3.</p>
+<h3 id="google-summer-of-code-2013">Google Summer of Code 2013</h3>
+<figure>
+<img src="plotrb.png" alt="Barley" /><figcaption>Barley</figcaption>
+</figure>
+</section><section id="ruby-band" class="slide level2">
+<h1>Ruby-Band</h1>
+<p><a href="https://github.com/arrigonialberto86/ruby-band">Alberto Arrigoni</a></p>
+<p>Data mining and machine learning algorithms for Ruby</p>
+<h3 id="google-summer-of-code-2013-1">Google Summer of Code 2013</h3>
+<p>installazione</p>
+<pre><code>gem install ruby-band</code></pre>
+<p>esempio</p>
+<pre><code>require &#39;ruby-band&#39;
+
+# Evaluator
+eval = Weka::Attribute_selection::Evaluator::CfsSubsetEval.new
+
+# Search algorithm
+search = Weka::Attribute_selection::Search::GreedyStepwise.new
+
+dataset = Core::Parser::parse_ARFF(&#39;weather.numeric.arff&#39;)</code></pre>
+</section><section id="ffi" class="slide level2">
+<h1>FFI</h1>
+<p><a href="https://github.com/ffi/ffi">https://github.com/ffi/ffi</a></p>
+<p>Ruby-FFI is a ruby extension for programmatically loading dynamic libraries, binding functions within them, and calling those functions from Ruby code. Moreover, a Ruby-FFI extension works without changes on Ruby and JRuby.</p>
+<p>installazione</p>
+<pre><code>gem install ffi</code></pre>
+<p>esempio</p>
+<pre><code>require &#39;ffi&#39;
+
+module MyLib
+  extend FFI::Library
+  ffi_lib &#39;c&#39;
+  attach_function :puts, [ :string ], :int
+end
+
+MyLib.puts &#39;Hello, World using libc!&#39;</code></pre>
+</section><section id="chef" class="slide level2">
+<h1>Chef</h1>
+<figure>
+<img src="chef.png" alt="opscode" /><figcaption><a href="http://www.opscode.com/chef/">opscode</a></figcaption>
+</figure>
+</section></section>
+<section><section id="fonti" class="titleslide slide level1"><h1>Fonti</h1></section><section id="libri" class="slide level2">
+<h1>Libri</h1>
+<ul>
+<li>Learn to Program</li>
+<li>Everyday Scripting with Ruby: for Teams, Testers, and You</li>
+<li>Metaprogramming Ruby (la seconda edizione è in uscita)</li>
+</ul>
+</section><section id="links" class="slide level2">
+<h1>Links</h1>
+<ul>
+<li><a href="www.ruby-doc.org/core-2.0.0/">Ruby 2.0 API</a></li>
+<li><a href="http://www.rubyinside.com/media/poignant-guide.pdf">http://www.rubyinside.com/media/poignant-guide.pdf</a></li>
+<li><a href="http://www.ruby-doc.org/docs/ProgrammingRuby/html/classes.html">http://www.ruby-doc.org/docs/ProgrammingRuby/html/classes.html</a></li>
+<li><a href="http://software-carpentry.org/v4/python/index.html">http://software-carpentry.org/v4/python/index.html</a></li>
+<li><a href="https://www.ruby-lang.org/en/documentation/ruby-from-other-languages/to-ruby-from-java/">https://www.ruby-lang.org/en/documentation/ruby-from-other-languages/to-ruby-from-java/</a></li>
+<li><a href="https://www.ruby-lang.org/en/documentation/ruby-from-other-languages/">https://www.ruby-lang.org/en/documentation/ruby-from-other-languages/</a></li>
+</ul>
+</section><section id="links-1" class="slide level2">
+<h1>Links</h1>
+<ul>
+<li><a href="http://blog.codahale.com/2005/11/24/a-ruby-howto-writing-a-method-that-uses-code-blocks/">methods and blocks</a></li>
+<li><a href="http://blog.mostof.it/why-ruby-part-two-blocks-and-closures/">blocks</a></li>
+<li><a href="http://www.devalot.com/articles/2008/09/ruby-singleton">ruby singleton</a></li>
+<li><a href="http://blog.urbylog.info/2010/01/inside-ruby-19-interpreter-threading-in.html">threading</a></li>
+<li><a href="http://celluloid.io/">Parallel Programming with Celluloid</a></li>
+<li><a href="https://github.com/jruby/jruby/wiki/Concurrency-in-jruby">Concurrency with JRuby</a></li>
+</ul>
+</section><section id="forum" class="slide level2">
+<h1>Forum</h1>
+<ul>
+<li><a href="https://www.ruby-forum.com/">Ruby Forum</a></li>
+<li><a href="https://www.ruby-lang.org/en/community/mailing-lists/">mailing list EN</a></li>
+<li><a href="https://www.ruby-forum.com/forum/19">mailing list ITA</a></li>
+</ul>
+</section><section id="siti" class="slide level2">
+<h1>Siti</h1>
+<ul>
+<li><a href="http://www.bioruby.org/">BioRuby</a></li>
+<li><a href="http://www.biogems.info/">BioGems</a></li>
+<li><a href="https://rvm.io/">RVM</a></li>
+</ul>
+</section><section id="comè-stata-creata-la-presentazione" class="slide level2">
+<h1>Com'è stata creata la presentazione</h1>
+<ul>
+<li><a href="https://github.com/hakimel/reveal.js">Reveal.js</a></li>
+<li><a href="http://johnmacfarlane.net/pandoc/README.html">Pandoc</a></li>
+</ul>
+</section></section>
+    </div>
+  </div>
+
+  <script src="reveal.js/lib/js/head.min.js"></script>
+  <script src="reveal.js/js/reveal.min.js"></script>
+
+  <script>
+
+      // Full list of configuration options available here:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+        transition: Reveal.getQueryHash().transition || 'none', // default/cube/page/concave/zoom/linear/fade/none
+
+        // Optional libraries used to extend on reveal.js
+        dependencies: [
+          { src: 'reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad("ruby"); } },
+          { src: 'reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: 'reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+          { src: 'reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
+//          { src: 'reveal.js/plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; }, }
+//          { src: 'reveal.js/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+]});
+    </script>
+  </body>
+</html>
